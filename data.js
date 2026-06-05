@@ -18,19 +18,20 @@ const PRESS_RELEASES = [
 ];
 
 const FILINGS = [
-  {date:'2026-06-02',type:'6-K',description:'Report of Foreign Private Issuer — Operational Update',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226026774/form6-k.htm'},
-  {date:'2026-05-28',type:'6-K',description:'Report of Foreign Private Issuer — Q3 Results & Business Update',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025545/form6-k.htm'},
-  {date:'2026-05-26',type:'6-K',description:'Report of Foreign Private Issuer — Corporate Update',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025173/form6-k.htm'},
-  {date:'2026-05-20',type:'6-K',description:'Report of Foreign Private Issuer — Business Development Update',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226024473/form6-k.htm'},
-  {date:'2026-05-12',type:'6-K',description:'Report of Foreign Private Issuer — Strategic Announcement',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226022406/form6-k.htm'},
-  {date:'2026-04-30',type:'6-K',description:'Report of Foreign Private Issuer — Investor Presentation',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226020506/form6-k.htm'},
-  {date:'2026-04-10',type:'6-K',description:'Report of Foreign Private Issuer — Corporate Update',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226016061/form6-k.htm'},
-  {date:'2026-04-10',type:'6-K',description:'Report of Foreign Private Issuer — Additional Filing',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226015955/form6-k.htm'},
-  {date:'2026-02-02',type:'424B4',description:'Final Prospectus — Rule 424(b)(4) — IPO Offering',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226004786/form424b4.htm'},
-  {date:'2026-01-27',type:'8-A12B',description:'Registration of Class of Securities — Exchange Listing (NASDAQ)',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226003748/form8-a12b.htm'},
-  {date:'2026-01-13',type:'F-1/A',description:'Registration Statement Amendment — Foreign Private Issuer',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226001917/formf-1a.htm'},
-  {date:'2025-12-11',type:'F-1/A',description:'Registration Statement Amendment — Foreign Private Issuer',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315225027173/formf-1a.htm'},
-  {date:'2025-11-10',type:'F-1',description:'Registration Statement — Foreign Private Issuer (IPO Filing)',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315225021436/formf-1.htm'},
+  {date:'2026-06-02',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226026774/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226026774/0001493152-26-026774-index.htm'},
+  {date:'2026-05-28',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025545/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025545/0001493152-26-025545-index.htm'},
+  {date:'2026-05-26',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025173/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025173/0001493152-26-025173-index.htm'},
+  {date:'2026-05-20',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226024473/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226024473/0001493152-26-024473-index.htm'},
+  {date:'2026-05-12',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226022406/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226022406/0001493152-26-022406-index.htm'},
+  {date:'2026-04-30',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226020506/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226020506/0001493152-26-020506-index.htm'},
+  {date:'2026-04-10',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226016061/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226016061/0001493152-26-016061-index.htm'},
+  {date:'2026-04-10',type:'6-K',description:'Current Report',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226015955/form6-k.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226015955/0001493152-26-015955-index.htm'},
+  {date:'2026-03-31',type:'3',description:'Initial Statement of Beneficial Ownership',year:'2026',htmlUrl:'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002076975&type=3',indexUrl:'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002076975&type=3'},
+  {date:'2026-02-02',type:'424B4',description:'Prospectus',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226004786/form424b4.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226004786/0001493152-26-004786-index.htm'},
+  {date:'2026-01-27',type:'8-A12B',description:'Registration of Securities',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226003748/form8-a12b.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226003748/0001493152-26-003748-index.htm'},
+  {date:'2026-01-13',type:'F-1/A',description:'Registration Statement (Amendment)',year:'2026',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226001917/formf-1a.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226001917/0001493152-26-001917-index.htm'},
+  {date:'2025-12-11',type:'F-1/A',description:'Registration Statement (Amendment)',year:'2025',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315225027173/formf-1a.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315225027173/0001493152-25-027173-index.htm'},
+  {date:'2025-11-10',type:'F-1',description:'Registration Statement (IPO)',year:'2025',htmlUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315225021436/formf-1.htm',indexUrl:'https://www.sec.gov/Archives/edgar/data/2076975/000149315225021436/0001493152-25-021436-index.htm'},
 ];
 
 const MANAGEMENT = [

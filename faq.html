@@ -11,7 +11,7 @@
 <div id="header-placeholder"></div>
 <div class="page-header">
   <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Home</a> › Resources › FAQ</div>
+    <div class="breadcrumb"><a href="index">Home</a> › Resources › FAQ</div>
     <h1>Frequently Asked Questions</h1>
     <p>Common investor questions about Braiin Limited and its securities.</p>
   </div>
@@ -24,14 +24,14 @@
         <div style="font-weight:600;margin-bottom:4px">Can't find your answer?</div>
         <p style="font-size:14px">Contact our Investor Relations team directly.</p>
       </div>
-      <a href="contact.html" class="btn btn-primary btn-sm" style="flex-shrink:0">Contact IR Team →</a>
+      <a href="contact" class="btn btn-primary btn-sm" style="flex-shrink:0">Contact IR Team →</a>
     </div>
   </div>
 </section>
 <div id="footer-placeholder"></div>
 <script src="components.js"></script><script src="data.js"></script>
 <script>
-renderHeader('faq.html'); renderFooter();
+renderHeader('faq'); renderFooter();
 document.getElementById('faqList').innerHTML = FAQ.map((item,i)=>`
   <div class="faq-item" id="faq${i}">
     <div class="faq-q" onclick="toggleFaq(${i})">

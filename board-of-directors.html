@@ -12,7 +12,7 @@
 
 <div class="page-header">
   <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Home</a> › Governance › Board of Directors</div>
+    <div class="breadcrumb"><a href="index">Home</a> › Governance › Board of Directors</div>
     <h1>Board of Directors</h1>
     <p>The independent and executive directors guiding Braiin Limited's corporate governance.</p>
   </div>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div style="margin-top:20px">
-      <a href="management.html" class="btn btn-ghost">← View Management Team</a>
+      <a href="management" class="btn btn-ghost">← View Management Team</a>
     </div>
   </div>
 </section>
@@ -41,7 +41,7 @@
 <div id="footer-placeholder"></div>
 <script src="components.js"></script><script src="data.js"></script>
 <script>
-renderHeader('board-of-directors.html'); renderFooter();
+renderHeader('board-of-directors'); renderFooter();
 document.getElementById('boardGrid').innerHTML = BOARD.map(p=>`
   <div class="person-card">
     <div class="person-av">${p.initials}</div>

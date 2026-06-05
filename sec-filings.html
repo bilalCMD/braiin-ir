@@ -6,73 +6,193 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* SEC filings page */
+  .filing-filters{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;margin-bottom:22px}
+  .ff-field{display:flex;flex-direction:column;gap:6px;min-width:180px}
+  .ff-field label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)}
+  .ff-field select{background:var(--surface-2);border:1.5px solid var(--line-strong);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Manrope',sans-serif;font-size:14px;outline:none;transition:.15s;cursor:pointer}
+  .ff-field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(13,110,253,.1)}
+
+  .filings-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .filings-table{width:100%;border-collapse:collapse;min-width:680px}
+  .filings-table thead tr{background:var(--accent)}
+  .filings-table th{padding:13px 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-align:left;font-weight:600;white-space:nowrap}
+  .filings-table td{padding:14px 18px;font-size:13.5px;border-bottom:1px solid var(--line);vertical-align:top}
+  .filings-table tbody tr:last-child td{border-bottom:none}
+  .filings-table tbody tr:hover{background:rgba(13,110,253,.03)}
+  .ft-date{font-family:'IBM Plex Mono',monospace;color:var(--muted);white-space:nowrap}
+  .ft-form{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--accent);white-space:nowrap}
+  .ft-desc{color:var(--text)}
+  .ft-desc .sec-link{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:12.5px;margin-top:4px;font-weight:500}
+  .ft-desc .sec-link:hover{text-decoration:underline}
+  .ft-downloads{display:flex;flex-direction:column;gap:6px}
+  .dl-link{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);transition:.15s;white-space:nowrap}
+  .dl-link:hover{color:var(--accent)}
+  .dl-badge{display:inline-grid;place-items:center;width:34px;height:20px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0}
+  .dl-html{background:rgba(13,110,253,.1);color:var(--accent)}
+  .dl-sec{background:rgba(5,150,105,.1);color:var(--up)}
+
+  /* Pagination */
+  .pagination{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:24px;flex-wrap:wrap}
+  .page-btn{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;transition:.15s}
+  .page-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+  .page-btn:disabled{opacity:.4;cursor:not-allowed}
+  .page-info{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);margin:0 8px}
+  .filings-count{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted-2);margin-bottom:14px}
+</style>
 </head>
 <body>
 <div id="header-placeholder"></div>
 
 <div class="page-header">
   <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Home</a> › SEC Filings</div>
+    <div class="breadcrumb"><a href="index">Home</a> / SEC Filings</div>
     <h1>SEC Filings</h1>
-    <p>All filings sourced directly from SEC EDGAR — CIK 0002076975.</p>
+    <p>All filings are sourced directly from the SEC EDGAR system · CIK 0002076975</p>
   </div>
 </div>
 
 <section class="sec">
   <div class="wrap">
-    <div class="filterbar" id="filterbar"></div>
-    <div id="ftableWrap"></div>
-    <div class="edgar-note mt-4" id="edgarNote"></div>
+    <!-- Filters -->
+    <div class="filing-filters">
+      <div class="ff-field">
+        <label>Filings</label>
+        <select id="formFilter" onchange="applyFilters()"></select>
+      </div>
+      <div class="ff-field">
+        <label>Year</label>
+        <select id="yearFilter" onchange="applyFilters()"></select>
+      </div>
+    </div>
+
+    <div class="filings-count" id="filingsCount"></div>
+
+    <!-- Table -->
+    <div class="filings-table-wrap">
+      <table class="filings-table">
+        <thead>
+          <tr><th>Date</th><th>Form</th><th>Description</th><th>Download</th></tr>
+        </thead>
+        <tbody id="filingsBody">
+          <tr><td colspan="4" style="text-align:center;padding:30px;color:var(--muted)">Loading filings from SEC EDGAR…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+
+    <div class="edgar-note" style="margin-top:18px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      Source: SEC EDGAR · data.sec.gov ·
+      <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002076975" target="_blank" rel="noopener" style="color:var(--accent)">View full filing history on SEC.gov →</a>
+    </div>
   </div>
 </section>
 
 <div id="footer-placeholder"></div>
 <script src="components.js"></script><script src="data.js"></script>
 <script>
-renderHeader('sec-filings.html'); renderFooter();
+renderHeader('sec-filings'); renderFooter();
 
-// Try live EDGAR first
+const PER_PAGE = 15;
+let ALL = [];
+let filtered = [];
+let page = 1;
+
 async function loadFilings() {
-  let filings = FILINGS;
   try {
     const r = await fetch('/api/filings');
-    if(r.ok){ const d = await r.json(); if(d.length) filings = d; }
+    if (r.ok) { const d = await r.json(); if (d.length) { ALL = d; init(); return; } }
   } catch {}
-  renderFilings(filings);
+  // fallback to static (normalize shape)
+  ALL = FILINGS.map(f => ({
+    date: f.date, type: f.type, description: f.description, year: f.year || (f.date||'').slice(0,4),
+    htmlUrl: f.htmlUrl || f.url, indexUrl: f.indexUrl || f.url, folderUrl: f.indexUrl || f.url,
+  }));
+  init();
 }
 
-const types = ['All',...[...new Set(FILINGS.map(f=>f.type))]];
-let active = 'All';
-
-function renderFilters(filings) {
-  const allTypes = ['All',...[...new Set(filings.map(f=>f.type))]];
-  document.getElementById('filterbar').innerHTML = allTypes.map(t =>
-    `<button class="chip${t===active?' active':''}" onclick="setType('${t}',${JSON.stringify(filings)})">${t}</button>`
-  ).join('');
+function fmtDate(iso) {
+  const [y,m,d] = iso.split('-').map(Number);
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[m-1]} ${d}, ${y}`;
 }
 
-function setType(t, filings) { active=t; renderFilings(filings); }
-
-function renderFilings(filings) {
-  const rows = active==='All' ? filings : filings.filter(f=>f.type===active);
-  document.getElementById('ftableWrap').innerHTML = `
-    <div class="ftable">
-      <div class="frow head"><div>Filing Date</div><div>Form</div><div class="fdesc">Description</div><div class="flink">Document</div></div>
-      ${rows.map(f=>`<div class="frow">
-        <div class="fdate">${f.date}</div>
-        <div class="ftype">${f.type}</div>
-        <div class="fdesc">${f.description}</div>
-        <a href="${f.url||f.accessionNumber||'#'}" class="flink" target="_blank" rel="noopener">
-          View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-        </a>
-      </div>`).join('')}
-    </div>`;
-  renderFilters(filings);
-  document.getElementById('edgarNote').innerHTML = `
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-    Source: SEC EDGAR · data.sec.gov · CIK 0002076975 ·
-    <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002076975" target="_blank" style="color:var(--accent)">View on EDGAR →</a>`;
+function init() {
+  // Build Form filter
+  const forms = ['All Filings', ...[...new Set(ALL.map(f=>f.type))]];
+  document.getElementById('formFilter').innerHTML = forms.map(f=>`<option value="${f}">${f}</option>`).join('');
+  // Build Year filter
+  const years = ['All', ...[...new Set(ALL.map(f=>f.year))].sort().reverse()];
+  document.getElementById('yearFilter').innerHTML = years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  applyFilters();
 }
+
+function applyFilters() {
+  const form = document.getElementById('formFilter').value;
+  const year = document.getElementById('yearFilter').value;
+  filtered = ALL.filter(f =>
+    (form === 'All Filings' || !form || f.type === form) &&
+    (year === 'All' || !year || f.year === year)
+  );
+  page = 1;
+  render();
+}
+
+function render() {
+  const total = filtered.length;
+  const pages = Math.max(1, Math.ceil(total / PER_PAGE));
+  if (page > pages) page = pages;
+  const start = (page-1)*PER_PAGE;
+  const rows = filtered.slice(start, start+PER_PAGE);
+
+  document.getElementById('filingsCount').textContent =
+    `Showing ${total === 0 ? 0 : start+1}–${Math.min(start+PER_PAGE,total)} of ${total} filings`;
+
+  const body = document.getElementById('filingsBody');
+  if (!rows.length) {
+    body.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:30px;color:var(--muted)">No filings match the selected filters</td></tr>';
+  } else {
+    body.innerHTML = rows.map(f => `
+      <tr>
+        <td class="ft-date">${fmtDate(f.date)}</td>
+        <td class="ft-form">${f.type}</td>
+        <td class="ft-desc">
+          ${f.description}
+          <br><a class="sec-link" href="${f.indexUrl}" target="_blank" rel="noopener">
+            View this form ${f.type} on SEC.gov
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </a>
+        </td>
+        <td>
+          <div class="ft-downloads">
+            <a class="dl-link" href="${f.htmlUrl}" target="_blank" rel="noopener" title="HTML view of form ${f.type} filed on ${fmtDate(f.date)}">
+              <span class="dl-badge dl-html">HTML</span> View document
+            </a>
+            <a class="dl-link" href="${f.indexUrl}" target="_blank" rel="noopener" title="Filing index on SEC.gov">
+              <span class="dl-badge dl-sec">SEC</span> Filing index
+            </a>
+          </div>
+        </td>
+      </tr>`).join('');
+  }
+
+  // Pagination
+  const pg = document.getElementById('pagination');
+  if (pages <= 1) { pg.innerHTML = ''; return; }
+  pg.innerHTML = `
+    <button class="page-btn" onclick="goPage(1)" ${page===1?'disabled':''}>« First</button>
+    <button class="page-btn" onclick="goPage(${page-1})" ${page===1?'disabled':''}>‹ Previous</button>
+    <span class="page-info">Page ${page} of ${pages}</span>
+    <button class="page-btn" onclick="goPage(${page+1})" ${page===pages?'disabled':''}>Next ›</button>
+    <button class="page-btn" onclick="goPage(${pages})" ${page===pages?'disabled':''}>Last »</button>`;
+}
+
+function goPage(p) { page = p; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+
 loadFilings();
 </script>
 </body></html>

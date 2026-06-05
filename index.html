@@ -26,8 +26,8 @@
         <h1>A global <span class="hl">AI platform company</span> modernizing analogue industries.</h1>
         <p class="hero-sub">Braiin Limited delivers automation and predictive analytics across precision agriculture, customer experience, and property technology — deploying proprietary AI and machine learning to industries that have never had it.</p>
         <div class="hero-actions">
-          <a href="press-releases.html" class="btn btn-primary">Latest Releases</a>
-          <a href="presentations.html" class="btn btn-outline">Investor Presentation</a>
+          <a href="press-releases" class="btn btn-primary">Latest Releases</a>
+          <a href="presentations" class="btn btn-outline">Investor Presentation</a>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
         <h2 style="margin-bottom:16px">Intelligence for the physical world.</h2>
         <p class="about-lead">Braiin Limited (NASDAQ: BRAI) is a global AI platform company delivering automation and predictive analytics across precision agriculture, customer experience, and property technology.</p>
         <p style="margin-top:12px">The Company's platforms combine autonomous robotics, IoT, and machine learning to modernize analogue industries. Headquartered in Western Australia, operations span seven countries with ~800 employees.</p>
-        <div style="margin-top:24px"><a href="management.html" class="btn btn-ghost btn-sm">Meet the Team →</a></div>
+        <div style="margin-top:24px"><a href="management" class="btn btn-ghost btn-sm">Meet the Team →</a></div>
       </div>
       <div class="stats-grid">
         <div class="stat-card"><div class="stat-n">BRAI</div><div class="stat-l">NASDAQ Ticker</div></div>
@@ -101,7 +101,7 @@
   <div class="wrap">
     <div class="sec-head">
       <div><div class="sec-label">Newsroom</div><h2>Latest Press Releases</h2></div>
-      <a href="press-releases.html" class="btn btn-ghost btn-sm">View All →</a>
+      <a href="press-releases" class="btn btn-ghost btn-sm">View All →</a>
     </div>
     <div class="pr-list" id="homePress"></div>
   </div>
@@ -112,7 +112,7 @@
   <div class="wrap">
     <div class="sec-head">
       <div><div class="sec-label">Disclosure</div><h2>SEC Filings</h2><p>Live from SEC EDGAR · CIK 0002076975</p></div>
-      <a href="sec-filings.html" class="btn btn-ghost btn-sm">View All →</a>
+      <a href="sec-filings" class="btn btn-ghost btn-sm">View All →</a>
     </div>
     <div id="homeFilings"></div>
   </div>
@@ -123,7 +123,7 @@
   <div class="wrap">
     <div class="sec-head">
       <div><div class="sec-label">Governance</div><h2>Leadership &amp; Board</h2></div>
-      <a href="management.html" class="btn btn-ghost btn-sm">View All →</a>
+      <a href="management" class="btn btn-ghost btn-sm">View All →</a>
     </div>
     <div class="people-grid" id="homePeople"></div>
   </div>
@@ -178,7 +178,7 @@
 <script src="components.js"></script>
 <script src="data.js"></script>
 <script>
-renderHeader('index.html', true);
+renderHeader('index', true);
 renderFooter();
 
 // ── Stock Card ──────────────────────────
@@ -236,7 +236,7 @@ function renderHomePressReleases() {
   const el = document.getElementById('homePress');
   if (!el || !window.PRESS_RELEASES) return;
   el.innerHTML = PRESS_RELEASES.slice(0,6).map(r => `
-    <a class="pr-item" href="${r.url||'press-releases.html'}" target="_blank" rel="noopener noreferrer">
+    <a class="pr-item" href="${r.url||'press-releases'}" target="_blank" rel="noopener noreferrer">
       <div class="pr-date">${r.date}</div>
       <div><span class="pr-tag">${r.tag}</span><h4>${r.headline}</h4></div>
       <span class="pr-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
@@ -253,7 +253,7 @@ function renderHomeFilings() {
       <div class="fdate">${f.date}</div>
       <div class="ftype">${f.type}</div>
       <div class="fdesc">${f.description}</div>
-      <a href="${f.url||'#'}" class="flink" target="_blank">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+      <a href="${f.htmlUrl||f.url||'#'}" class="flink" target="_blank" rel="noopener">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
     </div>`).join('')}
   </div>
   <div class="edgar-note mt-4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: SEC EDGAR · data.sec.gov</div>`;

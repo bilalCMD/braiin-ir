@@ -11,7 +11,7 @@
 <div id="header-placeholder"></div>
 <div class="page-header">
   <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Home</a> › Resources › Media &amp; Events</div>
+    <div class="breadcrumb"><a href="index">Home</a> › Resources › Media &amp; Events</div>
     <h1>Media &amp; Events</h1>
     <p>Upcoming earnings calls, investor conferences, and company presentations.</p>
   </div>
@@ -27,7 +27,7 @@
 <div id="footer-placeholder"></div>
 <script src="components.js"></script><script src="data.js"></script>
 <script>
-renderHeader('events.html'); renderFooter();
+renderHeader('events'); renderFooter();
 function eventCard(e) {
   const col = badgeColor(e.type);
   return `<div class="event-card">

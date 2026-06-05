@@ -12,7 +12,7 @@
 
 <div class="page-header">
   <div class="wrap page-header-content">
-    <div class="breadcrumb"><a href="index.html">Home</a> › Press Releases</div>
+    <div class="breadcrumb"><a href="index">Home</a> › Press Releases</div>
     <h1>Press Releases</h1>
     <p>Official company announcements, earnings releases, and regulatory disclosures.</p>
   </div>
@@ -28,7 +28,7 @@
 <div id="footer-placeholder"></div>
 <script src="components.js"></script><script src="data.js"></script>
 <script>
-renderHeader('press-releases.html'); renderFooter();
+renderHeader('press-releases'); renderFooter();
 
 const tags = ['All',...[...new Set(PRESS_RELEASES.map(r=>r.tag))]];
 let active = 'All';

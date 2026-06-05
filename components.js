@@ -5,22 +5,22 @@
 // ── NAV DATA ──────────────────────────────
 const NAV = [
   { label: 'Corporate', href: 'https://braiin.com/', external: true },
-  { label: 'Presentations', href: 'presentations.html' },
-  { label: 'Press Releases', href: 'press-releases.html' },
+  { label: 'Presentations', href: 'presentations' },
+  { label: 'Press Releases', href: 'press-releases' },
   {
     label: 'Governance', dropdown: [
-      { label: 'Management', href: 'management.html' },
-      { label: 'Board of Directors', href: 'board-of-directors.html' },
+      { label: 'Management', href: 'management' },
+      { label: 'Board of Directors', href: 'board-of-directors' },
     ]
   },
-  { label: 'SEC Filings', href: 'sec-filings.html' },
-  { label: 'Email Alerts', href: 'alerts.html' },
+  { label: 'SEC Filings', href: 'sec-filings' },
+  { label: 'Email Alerts', href: 'alerts' },
   {
     label: 'Resources', dropdown: [
-      { label: 'Media & Events', href: 'events.html' },
-      { label: 'Stock', href: 'stock.html' },
-      { label: 'FAQ', href: 'faq.html' },
-      { label: 'Contact Us', href: 'contact.html' },
+      { label: 'Media & Events', href: 'events' },
+      { label: 'Stock', href: 'stock' },
+      { label: 'FAQ', href: 'faq' },
+      { label: 'Contact Us', href: 'contact' },
     ]
   },
 ];
@@ -49,7 +49,7 @@ function logoSVG(onHero = false) {
 
 function logoHTML() {
   // Colors are controlled via CSS (so they recolor correctly on scroll).
-  return `<a href="index.html" class="nav-logo">
+  return `<a href="index" class="nav-logo">
     <span class="nav-logo-icon">${logoSVG(false)}</span>
     <span class="nav-logo-text">BR<span class="nav-logo-ai">AI</span>IN</span>
   </a>`;
@@ -124,7 +124,7 @@ function renderHeader(activePage = '', heroMode = false) {
               ${navLinks}
             </nav>
             <div style="display:flex;align-items:center;gap:8px">
-              <a href="alerts.html" class="btn btn-primary btn-sm" style="display:none" id="navAlertBtn">Get Alerts</a>
+              <a href="alerts" class="btn btn-primary btn-sm" style="display:none" id="navAlertBtn">Get Alerts</a>
               <button class="hamburger" id="hamburger" aria-label="Open menu">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M3 6h18M3 12h18M3 18h18"/>
@@ -207,22 +207,22 @@ function renderFooter() {
           <div>
             <div class="footer-col-title">Investor Relations</div>
             <div class="footer-links">
-              <a href="press-releases.html">Press Releases</a>
-              <a href="sec-filings.html">SEC Filings</a>
-              <a href="presentations.html">Presentations</a>
-              <a href="events.html">Events</a>
-              <a href="alerts.html">Email Alerts</a>
+              <a href="press-releases">Press Releases</a>
+              <a href="sec-filings">SEC Filings</a>
+              <a href="presentations">Presentations</a>
+              <a href="events">Events</a>
+              <a href="alerts">Email Alerts</a>
             </div>
           </div>
           <div>
             <div class="footer-col-title">Company</div>
             <div class="footer-links">
               <a href="https://braiin.com" target="_blank" rel="noopener">Corporate Site</a>
-              <a href="management.html">Management</a>
-              <a href="board-of-directors.html">Board of Directors</a>
-              <a href="contact.html">Contact Us</a>
-              <a href="faq.html">FAQ</a>
-              <a href="stock.html">Stock</a>
+              <a href="management">Management</a>
+              <a href="board-of-directors">Board of Directors</a>
+              <a href="contact">Contact Us</a>
+              <a href="faq">FAQ</a>
+              <a href="stock">Stock</a>
             </div>
           </div>
         </div>
