@@ -57,14 +57,25 @@ p{font-size:15px;color:var(--muted)}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--up);animation:pulse 2.4s infinite;flex-shrink:0}
 
 /* ════════════════════════════════════
-   TICKER BAR
+   TOP BAR — unified container (ticker + nav)
    ════════════════════════════════════ */
+.topbar{position:sticky;top:0;z-index:50}
+/* On the home hero: float over the hero image, transparent */
+.topbar-hero{position:absolute;left:0;right:0;top:0}
+.topbar-hero.scrolled{position:fixed}
+
+/* ── TICKER BAR ── */
 .ticker-bar{
   background:#fff;
   border-bottom:1px solid var(--line);
   overflow:hidden;
   position:relative;
-  z-index:60;
+  z-index:1;
+  transition:background .3s,border-color .3s;
+}
+.topbar-hero:not(.scrolled) .ticker-bar{
+  background:rgba(2,10,28,.42);
+  border-bottom-color:rgba(255,255,255,.08);
 }
 .ticker-inner{
   display:flex;align-items:center;justify-content:space-between;
@@ -76,41 +87,44 @@ p{font-size:15px;color:var(--muted)}
 @media(min-width:600px){.ticker-right{display:flex}}
 .t-sym{color:var(--text);font-weight:700}
 .t-price{color:var(--text)}
+.ticker-right b{color:var(--text)}
 .t-up{color:var(--up)}
 .t-down{color:var(--down)}
+/* Hero (transparent) — make ticker text light */
+.topbar-hero:not(.scrolled) .ticker-inner{color:rgba(255,255,255,.6)}
+.topbar-hero:not(.scrolled) .t-sym,
+.topbar-hero:not(.scrolled) .t-price,
+.topbar-hero:not(.scrolled) .ticker-right b{color:#fff}
 
 /* ════════════════════════════════════
    HEADER / NAV
    ════════════════════════════════════ */
 .site-header{
-  position:sticky;top:0;z-index:50;
+  position:relative;
+  z-index:2;
   background:rgba(255,255,255,.97);
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   box-shadow:0 2px 16px rgba(0,0,0,.06);
-  transition:background .3s;
+  transition:background .3s,box-shadow .3s,border-color .3s;
 }
-/* Transparent on hero */
-.site-header.hero-mode{
-  position:absolute;left:0;right:0;top:0;
-  background:rgba(5,18,45,.30);
-  backdrop-filter:blur(5px);
+/* Hero (transparent) header */
+.topbar-hero:not(.scrolled) .site-header{
+  background:transparent;
+  backdrop-filter:none;
   border-bottom:1px solid rgba(255,255,255,.10);
   box-shadow:none;
 }
-.site-header.hero-mode.scrolled{
-  position:fixed;
-  background:rgba(255,255,255,.97);
-  border-bottom:1px solid var(--line);
-  box-shadow:0 2px 16px rgba(0,0,0,.06);
-}
-.nav-wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;position:relative;z-index:2}
 @media(min-width:768px){.nav-wrap{height:70px}}
 
-/* Logo */
-.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--text);text-decoration:none}
+/* Logo (colors via CSS so they recolor on scroll) */
+.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .nav-logo-icon{display:flex;align-items:center}
-.site-header.hero-mode .nav-logo,.site-header.hero-mode .nav-logo span{color:#fff}
+.nav-logo-text{color:var(--text)}
+.nav-logo-ai{border:2px solid rgba(13,27,42,.4);border-radius:4px;padding:0 3px;margin:0 1px;font-size:.86em}
+.topbar-hero:not(.scrolled) .nav-logo-text{color:#fff}
+.topbar-hero:not(.scrolled) .nav-logo-ai{border-color:rgba(255,255,255,.6)}
 @media(min-width:768px){.nav-logo{font-size:20px}}
 
 /* Desktop nav links */
@@ -123,15 +137,15 @@ p{font-size:15px;color:var(--muted)}
   text-decoration:none;white-space:nowrap;
 }
 .nav-link:hover{color:var(--accent);background:rgba(13,110,253,.06)}
-.site-header.hero-mode .nav-link{color:rgba(255,255,255,.82)}
-.site-header.hero-mode .nav-link:hover{color:#fff;background:rgba(255,255,255,.12)}
+.topbar-hero:not(.scrolled) .nav-link{color:rgba(255,255,255,.85)}
+.topbar-hero:not(.scrolled) .nav-link:hover{color:#fff;background:rgba(255,255,255,.12)}
 
 /* Dropdown */
 .nav-drop{position:relative}
 .nav-drop-btn{background:none;border:none;padding:8px 11px;border-radius:8px;font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:500;color:var(--muted);transition:.18s;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
-.site-header.hero-mode .nav-drop-btn{color:rgba(255,255,255,.82)}
-.nav-drop-btn:hover,.site-header.hero-mode .nav-drop-btn:hover{color:var(--accent);background:rgba(13,110,253,.06)}
-.site-header.hero-mode .nav-drop-btn:hover{color:#fff;background:rgba(255,255,255,.12)}
+.nav-drop-btn:hover{color:var(--accent);background:rgba(13,110,253,.06)}
+.topbar-hero:not(.scrolled) .nav-drop-btn{color:rgba(255,255,255,.85)}
+.topbar-hero:not(.scrolled) .nav-drop-btn:hover{color:#fff;background:rgba(255,255,255,.12)}
 .nav-drop-menu{
   position:absolute;top:calc(100% + 8px);left:0;min-width:200px;
   background:#fff;border:1px solid var(--line-strong);border-radius:12px;
@@ -147,7 +161,7 @@ p{font-size:15px;color:var(--muted)}
 /* Hamburger */
 .hamburger{display:grid;place-items:center;background:none;border:none;padding:8px;border-radius:8px;color:var(--muted);transition:.18s}
 .hamburger:hover{background:rgba(0,0,0,.05);color:var(--text)}
-.site-header.hero-mode .hamburger{color:rgba(255,255,255,.85)}
+.topbar-hero:not(.scrolled) .hamburger{color:rgba(255,255,255,.85)}
 @media(min-width:1060px){.hamburger{display:none}}
 
 /* ════════════════════════════════════

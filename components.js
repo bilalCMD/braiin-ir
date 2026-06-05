@@ -47,12 +47,11 @@ function logoSVG(onHero = false) {
   </svg>`;
 }
 
-function logoHTML(onHero = false) {
-  const color = onHero ? '#fff' : '#0D1B2A';
-  const borderColor = onHero ? 'rgba(255,255,255,0.6)' : 'rgba(13,27,42,0.4)';
+function logoHTML() {
+  // Colors are controlled via CSS (so they recolor correctly on scroll).
   return `<a href="index.html" class="nav-logo">
-    <span class="nav-logo-icon">${logoSVG(onHero)}</span>
-    <span style="color:${color}">BR<span style="border:2px solid ${borderColor};border-radius:4px;padding:0 3px;margin:0 1px;font-size:17px">AI</span>IN</span>
+    <span class="nav-logo-icon">${logoSVG(false)}</span>
+    <span class="nav-logo-text">BR<span class="nav-logo-ai">AI</span>IN</span>
   </a>`;
 }
 
@@ -92,53 +91,56 @@ function renderHeader(activePage = '', heroMode = false) {
     return `<a href="${item.href}" ${ext}>${item.label}</a>`;
   }).join('<div class="drawer-divider"></div>');
 
-  const hClass = heroMode ? 'site-header hero-mode' : 'site-header';
+  const topClass = heroMode ? 'topbar topbar-hero' : 'topbar';
 
   document.getElementById('header-placeholder').innerHTML = `
-    <!-- TICKER BAR -->
-    <div class="ticker-bar">
-      <div class="wrap">
-        <div class="ticker-inner">
-          <div class="ticker-left">
-            <span class="dot"></span>
-            <span class="t-sym">NASDAQ: BRAI</span>
-            <span class="t-price" id="tkPrice">$—</span>
-            <span id="tkChg" class="t-up">—</span>
-          </div>
-          <div class="ticker-right" id="tickerRight">
-            <span>Vol <b id="tkVol" style="color:var(--text)">—</b></span>
-            <span>Mkt Cap <b style="color:var(--text)">$412.6M</b></span>
-            <span id="mktStatus">—</span>
+    <!-- UNIFIED TOP BAR (ticker + nav share one stacking context) -->
+    <div class="${topClass}" id="topBar">
+      <!-- TICKER BAR -->
+      <div class="ticker-bar">
+        <div class="wrap">
+          <div class="ticker-inner">
+            <div class="ticker-left">
+              <span class="dot"></span>
+              <span class="t-sym">NASDAQ: BRAI</span>
+              <span class="t-price" id="tkPrice">$—</span>
+              <span id="tkChg" class="t-up">—</span>
+            </div>
+            <div class="ticker-right" id="tickerRight">
+              <span>Vol <b id="tkVol">—</b></span>
+              <span>Mkt Cap <b>$412.6M</b></span>
+              <span id="mktStatus">—</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- HEADER -->
-    <header class="${hClass}" id="siteHeader">
-      <div class="wrap">
-        <div class="nav-wrap">
-          ${logoHTML(heroMode)}
-          <nav class="nav-links" aria-label="Main navigation">
-            ${navLinks}
-          </nav>
-          <div style="display:flex;align-items:center;gap:8px">
-            <a href="alerts.html" class="btn btn-primary btn-sm" style="display:none" id="navAlertBtn">Get Alerts</a>
-            <button class="hamburger" id="hamburger" aria-label="Open menu">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 6h18M3 12h18M3 18h18"/>
-              </svg>
-            </button>
+      <!-- HEADER NAV -->
+      <header class="site-header" id="siteHeader">
+        <div class="wrap">
+          <div class="nav-wrap">
+            ${logoHTML()}
+            <nav class="nav-links" aria-label="Main navigation">
+              ${navLinks}
+            </nav>
+            <div style="display:flex;align-items:center;gap:8px">
+              <a href="alerts.html" class="btn btn-primary btn-sm" style="display:none" id="navAlertBtn">Get Alerts</a>
+              <button class="hamburger" id="hamburger" aria-label="Open menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 6h18M3 12h18M3 18h18"/>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
 
     <!-- MOBILE DRAWER -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
     <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
       <div class="drawer-head">
-        ${logoHTML(false)}
+        ${logoHTML()}
         <button class="drawer-close" id="drawerClose" aria-label="Close menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 6 6 18M6 6l12 12"/>
@@ -166,12 +168,12 @@ function renderHeader(activePage = '', heroMode = false) {
   close.addEventListener('click', closeDrawer);
   overlay.addEventListener('click', closeDrawer);
 
-  // Hero scroll behavior
+  // Hero scroll behavior — toggle 'scrolled' on the whole top bar
   if (heroMode) {
-    const header = document.getElementById('siteHeader');
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 80);
-    }, { passive: true });
+    const topBar = document.getElementById('topBar');
+    const onScroll = () => topBar.classList.toggle('scrolled', window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 
   // Stock ticker
@@ -185,7 +187,7 @@ function renderFooter() {
       <div class="wrap">
         <div class="footer-grid">
           <div>
-            ${logoHTML(false)}
+            ${logoHTML()}
             <p class="footer-desc">Braiin Limited (NASDAQ: BRAI) — deploying proprietary AI and machine learning to precision agriculture, customer experience, and property technology.</p>
             <div class="social-row">
               <a href="#" aria-label="LinkedIn">
