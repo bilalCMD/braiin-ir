@@ -12,12 +12,21 @@
   .stock-section-title{font-family:'Sora',sans-serif;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--accent);margin-bottom:18px}
   .quote-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:15px;margin-bottom:18px}
   .quote-line .qp{font-size:18px;font-weight:600}
-  .quote-table{width:100%;border-collapse:collapse;max-width:560px}
+  /* 2-column quote layout */
+  .quote-grid{display:grid;grid-template-columns:1fr;gap:24px;align-items:start}
+  @media(min-width:820px){.quote-grid{grid-template-columns:1fr 1fr;gap:36px}}
+  .quote-table{width:100%;border-collapse:collapse}
   .quote-table tr{border-bottom:1px solid var(--line)}
   .quote-table td{padding:11px 4px;font-family:'IBM Plex Mono',monospace;font-size:13.5px}
   .quote-table td:first-child{color:var(--muted);width:55%}
   .quote-table td:last-child{text-align:right;font-weight:600;color:var(--text)}
-  .data-asof{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted-2);margin-top:12px}
+  /* right highlight panel */
+  .quote-hero{background:linear-gradient(160deg,var(--surface-2),#fff);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;height:100%}
+  .quote-hero .big-price{font-family:'IBM Plex Mono',monospace;font-size:48px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .quote-hero .big-change{display:flex;gap:9px;align-items:center;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:14px}
+  .quote-hero .qh-spark{flex:1;min-height:90px;margin-top:18px}
+  .quote-hero .qh-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted-2)}
+  .data-asof{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted-2);margin-top:16px}
   .refresh-btn{margin-top:14px}
   .chart-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:24px}
   .chart-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px}
@@ -70,17 +79,34 @@
         <span id="qChg" class="t-down">—</span>
         <span class="live-badge" style="margin-left:auto"><span class="dot" id="qLiveDot"></span><span id="qLiveLabel">Loading…</span></span>
       </div>
-      <table class="quote-table">
-        <tr><td>Price</td><td id="tPrice">—</td></tr>
-        <tr><td>Change (%)</td><td id="tChg">—</td></tr>
-        <tr><td>Volume</td><td id="tVol">—</td></tr>
-        <tr><td>Open</td><td id="tOpen">—</td></tr>
-        <tr><td>Previous Close</td><td id="tPrev">—</td></tr>
-        <tr><td>Day Range</td><td id="tRange">—</td></tr>
-        <tr><td>52 Week Range</td><td id="t52">—</td></tr>
-        <tr><td>Shares Outstanding</td><td id="tShares">—</td></tr>
-        <tr><td>Market Cap</td><td id="tMcap">—</td></tr>
-      </table>
+      <div class="quote-grid">
+        <!-- LEFT: full stats table -->
+        <table class="quote-table">
+          <tr><td>Price</td><td id="tPrice">—</td></tr>
+          <tr><td>Change (%)</td><td id="tChg">—</td></tr>
+          <tr><td>Volume</td><td id="tVol">—</td></tr>
+          <tr><td>Open</td><td id="tOpen">—</td></tr>
+          <tr><td>Previous Close</td><td id="tPrev">—</td></tr>
+          <tr><td>Day Range</td><td id="tRange">—</td></tr>
+          <tr><td>52 Week Range</td><td id="t52">—</td></tr>
+          <tr><td>Shares Outstanding</td><td id="tShares">—</td></tr>
+          <tr><td>Market Cap</td><td id="tMcap">—</td></tr>
+        </table>
+        <!-- RIGHT: highlight panel -->
+        <div class="quote-hero">
+          <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Last Trade</div>
+          <div class="big-price" id="heroPrice" style="color:var(--up)">$—</div>
+          <div class="big-change">
+            <span class="pill pill-down" id="heroPill">—</span>
+            <span style="color:var(--muted)">Today</span>
+          </div>
+          <div class="qh-spark" id="heroSpark"></div>
+          <div class="qh-foot">
+            <span id="heroMarket">● —</span>
+            <span>Intraday · 5-min</span>
+          </div>
+        </div>
+      </div>
       <div class="data-asof" id="dataAsof">Data as of —</div>
       <button class="btn btn-ghost btn-sm refresh-btn" onclick="loadQuote()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
@@ -214,8 +240,11 @@ function fillQuote(d, live) {
   document.getElementById('tRange').textContent = '$'+d.low.toFixed(2)+' - $'+d.high.toFixed(2);
   document.getElementById('t52').textContent = (d.fiftyTwoWeekHigh&&d.fiftyTwoWeekLow)
     ? '$'+d.fiftyTwoWeekLow.toFixed(2)+' - $'+d.fiftyTwoWeekHigh.toFixed(2) : '—';
-  document.getElementById('tShares').textContent = d.sharesOutstanding ? fmtNum(d.sharesOutstanding) : '—';
-  document.getElementById('tMcap').textContent = fmtMcap(d.marketCap);
+  // Shares Outstanding: real known value fallback (Yahoo quoteSummary often blocks)
+  const shares = d.sharesOutstanding || 206088228;
+  const mcap = d.marketCap || (d.price * shares);
+  document.getElementById('tShares').textContent = fmtNum(shares);
+  document.getElementById('tMcap').textContent = fmtMcap(mcap);
 
   const now = new Date();
   document.getElementById('dataAsof').textContent =
@@ -224,6 +253,20 @@ function fillQuote(d, live) {
 
   document.getElementById('qLiveDot').style.background = live ? '#10b981' : 'var(--muted-2)';
   document.getElementById('qLiveLabel').textContent = live ? 'Live' : 'Offline';
+
+  // ── Right highlight panel ──
+  document.getElementById('heroPrice').textContent = '$'+d.price.toFixed(2);
+  document.getElementById('heroPrice').style.color = up?'var(--up)':'var(--down)';
+  const hp = document.getElementById('heroPill');
+  hp.textContent = `${arrow} $${Math.abs(chg)} ${sign}${pct}%`;
+  hp.className = 'pill ' + (up?'pill-up':'pill-down');
+  const hm = document.getElementById('heroMarket');
+  const open = (new Date().getUTCHours()-4) >= 9 && (new Date().getUTCHours()-4) < 16;
+  hm.textContent = '● Market ' + (open?'Open':'Closed');
+  hm.style.color = open ? 'var(--up)' : 'var(--muted)';
+  if (d.history && d.history.length > 2 && typeof drawSVGSparkline === 'function') {
+    drawSVGSparkline(document.getElementById('heroSpark'), d.history, up);
+  }
 }
 
 // ─────────── CHART ───────────
