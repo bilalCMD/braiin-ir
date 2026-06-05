@@ -235,7 +235,7 @@ function simulateStockCard() {
 // ── Press Releases Preview ──────────────
 function renderHomePressReleases() {
   const el = document.getElementById('homePress');
-  if (!el || !window.PRESS_RELEASES) return;
+  if (!el || typeof PRESS_RELEASES === 'undefined') return;
   el.innerHTML = PRESS_RELEASES.slice(0,6).map(r => `
     <a class="pr-item" href="${r.url||'press-releases'}" target="_blank" rel="noopener noreferrer">
       <div class="pr-date">${r.date}</div>
@@ -247,7 +247,7 @@ function renderHomePressReleases() {
 // ── Filings Preview ──────────────────────
 function renderHomeFilings() {
   const el = document.getElementById('homeFilings');
-  if (!el || !window.FILINGS) return;
+  if (!el || typeof FILINGS === 'undefined') return;
   el.innerHTML = `<div class="ftable">
     <div class="frow head"><div>Date</div><div>Form</div><div class="fdesc">Description</div><div class="flink">View</div></div>
     ${FILINGS.slice(0,6).map(f=>`<div class="frow">
@@ -263,7 +263,7 @@ function renderHomeFilings() {
 // ── People Preview ───────────────────────
 function renderHomePeople() {
   const el = document.getElementById('homePeople');
-  if (!el || !window.MANAGEMENT) return;
+  if (!el || typeof MANAGEMENT === 'undefined') return;
   const all = [...MANAGEMENT.slice(0,4), ...BOARD.filter(b=>!MANAGEMENT.find(m=>m.initials===b.initials)).slice(0,4)];
   el.innerHTML = all.slice(0,8).map(p=>`
     <div class="person-card">
