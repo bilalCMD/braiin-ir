@@ -5,6 +5,7 @@
 <title>Presentations — Braiin IR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -39,13 +40,13 @@
 renderHeader('presentations'); renderFooter();
 
 document.getElementById('pressList').innerHTML = PRESENTATIONS.map(p=>`
-  <div class="doc-row">
+  <a class="doc-row" href="${p.url||'#'}" target="_blank" rel="noopener">
     <div class="doc-dl-wrap">
       <div class="doc-icon">PDF</div>
       <div><div class="doc-name">${p.title}</div><div class="doc-meta">${p.date} · ${p.size}</div></div>
     </div>
     <span class="doc-dl"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></span>
-  </div>`).join('');
+  </a>`).join('');
 
 document.getElementById('eventsList').innerHTML = EVENTS.map(e=>`
   <div class="event-row">

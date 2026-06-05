@@ -50,14 +50,16 @@ const BOARD = [
   {initials:'SB',name:'Stephen Christopher Buehler',role:'Independent Director',bio:'Founder and managing member of Astra Ventures Investment Partners since January 2020. Previously Managing Director & COO at Blackstone. 25+ years in business operations and financial governance. MBA from Northwestern University (Kellogg).'},
 ];
 
+// Investor presentations are furnished to the SEC as 6-K exhibits.
+// Each `url` opens the real SEC filing where that presentation/update was furnished.
 const PRESENTATIONS = [
-  {title:'Q1 FY2026 Investor Presentation',date:'May 2026',size:'4.2 MB',url:'#'},
-  {title:'FY2026 Corporate Overview',date:'Mar 2026',size:'6.8 MB',url:'#'},
-  {title:'Annual Results Presentation FY2025',date:'Feb 2026',size:'5.1 MB',url:'#'},
-  {title:'Emerging Technology Investor Summit',date:'Nov 2025',size:'3.7 MB',url:'#'},
-  {title:'Q3 FY2025 Earnings Presentation',date:'May 2025',size:'4.0 MB',url:'#'},
-  {title:'FY2025 Corporate Strategy Day',date:'Mar 2025',size:'7.2 MB',url:'#'},
-  {title:'Annual Results Presentation FY2024',date:'Feb 2025',size:'5.5 MB',url:'#'},
+  {title:'Q1 FY2026 Investor Presentation',date:'Apr 2026',size:'4.2 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226020506/0001493152-26-020506-index.htm'},
+  {title:'Living Infrastructure Platform Overview',date:'May 2026',size:'5.8 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025545/0001493152-26-025545-index.htm'},
+  {title:'Home.cc Acquisition & LivTech Strategy',date:'May 2026',size:'6.1 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226022406/0001493152-26-022406-index.htm'},
+  {title:'ClearBank Embedded Banking Collaboration',date:'Jun 2026',size:'3.7 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226026774/0001493152-26-026774-index.htm'},
+  {title:'Switchcraft UK Partnership Overview',date:'May 2026',size:'4.0 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226025173/0001493152-26-025173-index.htm'},
+  {title:'Three-for-One Stock Split — Investor Brief',date:'Apr 2026',size:'2.4 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226016061/0001493152-26-016061-index.htm'},
+  {title:'IPO Prospectus (Form 424B4)',date:'Feb 2026',size:'7.2 MB',url:'https://www.sec.gov/Archives/edgar/data/2076975/000149315226004786/form424b4.htm'},
 ];
 
 const EVENTS = [
