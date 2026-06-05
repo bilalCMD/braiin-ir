@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Media &amp; Events — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+<div class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Resources › Media &amp; Events</div>
+    <h1>Media &amp; Events</h1>
+    <p>Upcoming earnings calls, investor conferences, and company presentations.</p>
+  </div>
+</div>
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:22px"><div><div class="sec-label">Calendar</div><h2>Upcoming Events</h2></div></div>
+    <div class="events-grid mb-8" id="upcomingEvents"></div>
+    <div class="sec-head" style="margin-bottom:22px;margin-top:48px"><div><div class="sec-label">Archive</div><h2>Past Events</h2></div></div>
+    <div class="events-grid" id="pastEvents"></div>
+  </div>
+</section>
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('events.html'); renderFooter();
+function eventCard(e) {
+  const col = badgeColor(e.type);
+  return `<div class="event-card">
+    <div class="event-cal"><div class="m">${e.month}</div><div class="d">${e.day}</div></div>
+    <div class="event-content">
+      <div class="event-badge" style="color:${col};background:${col}18;border:1px solid ${col}33">● ${e.type.toUpperCase()}</div>
+      <h4>${e.title}</h4><p>${e.details}</p>
+    </div>
+  </div>`;
+}
+document.getElementById('upcomingEvents').innerHTML = EVENTS.map(eventCard).join('');
+document.getElementById('pastEvents').innerHTML = PAST_EVENTS.map(eventCard).join('');
+</script>
+</body></html>

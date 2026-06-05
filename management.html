@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Management — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Governance › Management</div>
+    <h1>Management Team</h1>
+    <p>The executive team responsible for Braiin Limited's global strategy and operations.</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="people-grid" id="mgmtGrid"></div>
+    <div style="margin-top:36px">
+      <a href="board-of-directors.html" class="btn btn-ghost">View Board of Directors →</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('management.html'); renderFooter();
+document.getElementById('mgmtGrid').innerHTML = MANAGEMENT.map(p=>`
+  <div class="person-card">
+    <div class="person-av">${p.initials}</div>
+    <div class="person-name">${p.name}</div>
+    <div class="person-role">${p.role}</div>
+    <p class="person-bio">${p.bio}</p>
+  </div>`).join('');
+</script>
+</body></html>

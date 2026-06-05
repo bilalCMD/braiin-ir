@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Board of Directors — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Governance › Board of Directors</div>
+    <h1>Board of Directors</h1>
+    <p>The independent and executive directors guiding Braiin Limited's corporate governance.</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="people-grid" id="boardGrid"></div>
+
+    <div style="margin-top:40px">
+      <div class="panel" style="max-width:640px">
+        <h3 style="margin-bottom:14px">Board Committees</h3>
+        <div style="color:var(--muted);font-size:14px;line-height:1.9">
+          <p>• <b style="color:var(--text)">Audit &amp; Risk Committee</b> — Oversees financial reporting, internal controls, and risk management.</p>
+          <p>• <b style="color:var(--text)">Remuneration Committee</b> — Reviews and recommends executive compensation and equity plans.</p>
+          <p>• <b style="color:var(--text)">Technology &amp; Innovation Committee</b> — Advises on AI strategy and platform roadmap.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <a href="management.html" class="btn btn-ghost">← View Management Team</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('board-of-directors.html'); renderFooter();
+document.getElementById('boardGrid').innerHTML = BOARD.map(p=>`
+  <div class="person-card">
+    <div class="person-av">${p.initials}</div>
+    <div class="person-name">${p.name}</div>
+    <div class="person-role">${p.role}</div>
+    ${p.bio && p.bio!=='See management profile.'?`<p class="person-bio">${p.bio}</p>`:''}
+  </div>`).join('');
+</script>
+</body></html>

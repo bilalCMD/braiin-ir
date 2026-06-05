@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact Us — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+<div class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Resources › Contact Us</div>
+    <h1>Contact Us</h1>
+    <p>Reach our Investor Relations team for enquiries, media requests, or shareholder services.</p>
+  </div>
+</div>
+<section class="sec">
+  <div class="wrap">
+    <div class="contact-grid mb-8">
+      <div class="cbox">
+        <div class="cbox-label">IR Contact</div>
+        <h4>Lucas A. Zimmerman &amp; Ian Scargill</h4>
+        <p class="cbox-sub">MZ Group — MZ North America</p>
+        <div class="cbox-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg><b><a href="tel:+12623572918">+1 262-357-2918</a></b></div>
+        <div class="cbox-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg><b><a href="mailto:BRAI@mzgroup.us">BRAI@mzgroup.us</a></b></div>
+      </div>
+      <div class="cbox">
+        <div class="cbox-label">Registered Office</div>
+        <h4>Braiin Limited</h4>
+        <p class="cbox-sub">Headquarters — Western Australia</p>
+        <div class="cbox-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><b>283 Rokeby Road, Subiaco, WA 6008</b></div>
+        <div class="cbox-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg><b><a href="https://braiin.com" target="_blank" rel="noopener">braiin.com</a></b></div>
+      </div>
+    </div>
+
+    <div class="contact-form" style="max-width:720px" id="formWrap">
+      <h3 style="margin-bottom:22px;font-size:20px">Send an Enquiry</h3>
+      <div class="form-row" style="margin-bottom:16px">
+        <div class="form-field"><label>Full Name *</label><input id="cName" placeholder="Jane Smith"/></div>
+        <div class="form-field"><label>Company</label><input id="cCompany" placeholder="Acme Capital"/></div>
+      </div>
+      <div class="form-row" style="margin-bottom:16px">
+        <div class="form-field"><label>Email *</label><input type="email" id="cEmail" placeholder="jane@acme.com"/></div>
+        <div class="form-field"><label>Phone</label><input id="cPhone" placeholder="+1 555 000 0000"/></div>
+      </div>
+      <div class="form-field" style="margin-bottom:20px"><label>Message *</label><textarea id="cMsg" placeholder="Your enquiry…"></textarea></div>
+      <button class="btn btn-primary" onclick="submitForm()">Send Message</button>
+      <div id="formSuccess" style="display:none;margin-top:16px;background:rgba(5,150,105,.08);border:1px solid rgba(5,150,105,.25);border-radius:9px;padding:18px;color:var(--up);font-family:'IBM Plex Mono',monospace;font-size:14px">
+        ✓ Message sent successfully. Our IR team will respond within 1–2 business days.
+      </div>
+    </div>
+  </div>
+</section>
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('contact.html'); renderFooter();
+function submitForm() {
+  const name=document.getElementById('cName').value;
+  const email=document.getElementById('cEmail').value;
+  const msg=document.getElementById('cMsg').value;
+  if(!name||!email||!msg){ alert('Please fill all required fields.'); return; }
+  document.getElementById('formWrap').querySelector('form, button').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+}
+</script>
+</body></html>

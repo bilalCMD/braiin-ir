@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Press Releases — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+  <div class="wrap page-header-content">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Press Releases</div>
+    <h1>Press Releases</h1>
+    <p>Official company announcements, earnings releases, and regulatory disclosures.</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="filterbar" id="filterbar"></div>
+    <div class="pr-list" id="prList"></div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('press-releases.html'); renderFooter();
+
+const tags = ['All',...[...new Set(PRESS_RELEASES.map(r=>r.tag))]];
+let active = 'All';
+
+function renderFilters() {
+  document.getElementById('filterbar').innerHTML = tags.map(t =>
+    `<button class="chip${t===active?' active':''}" onclick="setTag('${t}')">${t}</button>`
+  ).join('');
+}
+
+function setTag(t) { active=t; renderFilters(); renderList(); }
+
+function renderList() {
+  const filtered = active==='All' ? PRESS_RELEASES : PRESS_RELEASES.filter(r=>r.tag===active);
+  document.getElementById('prList').innerHTML = filtered.map(r=>`
+    <a class="pr-item" href="${r.url||'#'}" target="_blank" rel="noopener noreferrer">
+      <div class="pr-date">${r.date}</div>
+      <div><span class="pr-tag">${r.tag}</span><h4>${r.headline}</h4></div>
+      <span class="pr-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+    </a>`).join('');
+}
+renderFilters(); renderList();
+</script>
+</body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SEC Filings — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> › SEC Filings</div>
+    <h1>SEC Filings</h1>
+    <p>All filings sourced directly from SEC EDGAR — CIK 0002076975.</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="filterbar" id="filterbar"></div>
+    <div id="ftableWrap"></div>
+    <div class="edgar-note mt-4" id="edgarNote"></div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('sec-filings.html'); renderFooter();
+
+// Try live EDGAR first
+async function loadFilings() {
+  let filings = FILINGS;
+  try {
+    const r = await fetch('/api/filings');
+    if(r.ok){ const d = await r.json(); if(d.length) filings = d; }
+  } catch {}
+  renderFilings(filings);
+}
+
+const types = ['All',...[...new Set(FILINGS.map(f=>f.type))]];
+let active = 'All';
+
+function renderFilters(filings) {
+  const allTypes = ['All',...[...new Set(filings.map(f=>f.type))]];
+  document.getElementById('filterbar').innerHTML = allTypes.map(t =>
+    `<button class="chip${t===active?' active':''}" onclick="setType('${t}',${JSON.stringify(filings)})">${t}</button>`
+  ).join('');
+}
+
+function setType(t, filings) { active=t; renderFilings(filings); }
+
+function renderFilings(filings) {
+  const rows = active==='All' ? filings : filings.filter(f=>f.type===active);
+  document.getElementById('ftableWrap').innerHTML = `
+    <div class="ftable">
+      <div class="frow head"><div>Filing Date</div><div>Form</div><div class="fdesc">Description</div><div class="flink">Document</div></div>
+      ${rows.map(f=>`<div class="frow">
+        <div class="fdate">${f.date}</div>
+        <div class="ftype">${f.type}</div>
+        <div class="fdesc">${f.description}</div>
+        <a href="${f.url||f.accessionNumber||'#'}" class="flink" target="_blank" rel="noopener">
+          View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </div>`).join('')}
+    </div>`;
+  renderFilters(filings);
+  document.getElementById('edgarNote').innerHTML = `
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+    Source: SEC EDGAR · data.sec.gov · CIK 0002076975 ·
+    <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002076975" target="_blank" style="color:var(--accent)">View on EDGAR →</a>`;
+}
+loadFilings();
+</script>
+</body></html>

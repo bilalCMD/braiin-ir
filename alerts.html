@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Email Alerts — Braiin IR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+<div class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Email Alerts</div>
+    <h1>Email Alerts</h1>
+    <p>Subscribe to receive Braiin investor news directly in your inbox.</p>
+  </div>
+</div>
+<section class="sec">
+  <div class="wrap">
+    <div class="alerts-page-grid">
+      <!-- Preferences -->
+      <div class="panel">
+        <h3 style="margin-bottom:16px">Alert Preferences</h3>
+        <div id="prefList"></div>
+      </div>
+      <!-- Form -->
+      <div class="panel">
+        <h3 style="margin-bottom:18px">Your Details</h3>
+        <div class="form-field" style="margin-bottom:18px">
+          <label>Email Address</label>
+          <input type="email" id="alertEmail" placeholder="you@email.com" style="width:100%"/>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="doSubscribe()">Subscribe to Alerts</button>
+        <div id="alertMsg" class="alert-msg mt-4"></div>
+        <p style="margin-top:16px;font-size:12px;color:var(--muted-2);line-height:1.6">You may unsubscribe at any time. Braiin respects your privacy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="footer-placeholder"></div>
+<script src="components.js"></script><script src="data.js"></script>
+<script>
+renderHeader('alerts.html'); renderFooter();
+
+const PREFS = [
+  {id:'press',label:'Press Releases',desc:'All official company announcements'},
+  {id:'filings',label:'SEC Filings',desc:'EDGAR filing notifications (20-F, 6-K, etc.)'},
+  {id:'earnings',label:'Earnings Releases',desc:'Quarterly and annual financial results'},
+  {id:'events',label:'Events & Webcasts',desc:'Conference and earnings call reminders'},
+];
+
+let checked = new Set(['press','filings','earnings','events']);
+
+function renderPrefs() {
+  document.getElementById('prefList').innerHTML = PREFS.map(p=>`
+    <div class="pref-row">
+      <div class="pref-check${checked.has(p.id)?' checked':''}" onclick="togglePref('${p.id}')">
+        ${checked.has(p.id)?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>':''}
+      </div>
+      <div><div class="pref-label">${p.label}</div><div class="pref-desc">${p.desc}</div></div>
+    </div>`).join('');
+}
+
+function togglePref(id) {
+  checked.has(id) ? checked.delete(id) : checked.add(id);
+  renderPrefs();
+}
+
+function doSubscribe() {
+  const email = document.getElementById('alertEmail').value;
+  const msg = document.getElementById('alertMsg');
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.textContent='Please enter a valid email address.'; msg.style.color='#f87171'; return;
+  }
+  if(checked.size===0) { msg.textContent='Please select at least one alert type.'; msg.style.color='#f87171'; return; }
+  msg.textContent='✓ Subscribed successfully! You\'ll receive Braiin investor updates.';
+  msg.style.color='#4ade80';
+  document.getElementById('alertEmail').value='';
+}
+
+renderPrefs();
+</script>
+</body></html>
