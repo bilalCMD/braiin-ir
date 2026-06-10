@@ -48,10 +48,9 @@ function logoSVG(onHero = false) {
 }
 
 function logoHTML() {
-  // Colors are controlled via CSS (so they recolor correctly on scroll).
+  // Official BRAIIN logo. On the dark hero header a CSS filter turns it white.
   return `<a href="index" class="nav-logo">
-    <span class="nav-logo-icon">${logoSVG(false)}</span>
-    <span class="nav-logo-text">BR<span class="nav-logo-ai">AI</span>IN</span>
+    <img src="logo.png" alt="BRAIIN" class="nav-logo-img" />
   </a>`;
 }
 

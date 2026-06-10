@@ -118,14 +118,14 @@ p{font-size:15px;color:var(--muted)}
 .nav-wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;position:relative;z-index:2}
 @media(min-width:768px){.nav-wrap{height:70px}}
 
-/* Logo (colors via CSS so they recolor on scroll) */
-.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;text-decoration:none}
-.nav-logo-icon{display:flex;align-items:center}
-.nav-logo-text{color:var(--text)}
-.nav-logo-ai{border:2px solid rgba(13,27,42,.4);border-radius:4px;padding:0 3px;margin:0 1px;font-size:.86em}
-.topbar-hero:not(.scrolled) .nav-logo-text{color:#fff}
-.topbar-hero:not(.scrolled) .nav-logo-ai{border-color:rgba(255,255,255,.6)}
-@media(min-width:768px){.nav-logo{font-size:20px}}
+/* Logo — official BRAIIN PNG */
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo-img{height:30px;width:auto;display:block;transition:filter .3s}
+@media(min-width:768px){.nav-logo-img{height:34px}}
+/* On the dark hero header (not scrolled): show logo in white */
+.topbar-hero:not(.scrolled) .nav-logo-img{filter:brightness(0) invert(1)}
+/* Drawer + footer logos are on white bg → keep original colours */
+.drawer-head .nav-logo-img,footer .nav-logo-img{filter:none}
 
 /* Desktop nav links */
 .nav-links{display:none;align-items:center;gap:2px}
@@ -540,14 +540,44 @@ footer{background:#fff;border-top:1px solid var(--line);padding:44px 0 24px;marg
 /* ════════════════════════════════════
    MOBILE TWEAKS
    ════════════════════════════════════ */
+/* ════════════════════════════════════
+   MOBILE REFINEMENTS
+   ════════════════════════════════════ */
+@media(max-width:600px){
+  .sec{padding:44px 0}
+  .page-header{padding:40px 0 32px}         /* inner pages: sticky topbar already takes flow space */
+  .page-header h1{font-size:30px}
+  .sec-head{margin-bottom:26px}
+  .sec-head h2{font-size:26px}
+  /* stock page */
+  .stock-section-title{font-size:22px;margin-bottom:14px}
+  .quote-hero .big-price{font-size:40px}
+  .chart-card{padding:16px}
+  /* tables stay readable via horizontal scroll */
+  .filings-table-wrap,.hist-table-wrap{border-radius:10px}
+  /* stack the alerts page two-col */
+  .alerts-page-grid{grid-template-columns:1fr}
+  /* footer center-ish */
+  .footer-bar{flex-direction:column;align-items:flex-start;gap:6px}
+}
 @media(max-width:480px){
-  .hero{padding:56px 0 44px}
-  .hero h1{font-size:28px}
-  .stock-card{padding:18px}
-  .stock-price{font-size:38px}
+  /* NOTE: hero top padding stays 120px (set above) to clear the fixed top bar */
+  .hero h1{font-size:27px}
+  .hero-sub{font-size:14px}
+  .stock-card{padding:16px}
+  .stock-price{font-size:36px}
   .frow{padding:12px 14px}
-  .panel{padding:18px}
-  .person-card{padding:16px}
-  .alerts-banner{padding:26px 18px}
-  .cbox{padding:20px}
+  .panel{padding:16px}
+  .person-card{padding:15px}
+  .alerts-banner{padding:24px 16px}
+  .cbox{padding:18px}
+  .btn{padding:10px 16px;font-size:13.5px}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .btn{justify-content:center}
+  .page-header h1{font-size:26px}
+  .quote-hero{padding:18px}
+  .quote-hero .big-price{font-size:34px}
+  /* filters full width */
+  .ff-field,.hist-field{min-width:100%;width:100%}
+  .ff-field select,.hist-field input,.hist-field select{width:100%}
 }
