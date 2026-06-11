@@ -502,6 +502,13 @@ footer{background:#fff;border-top:1px solid var(--line);padding:44px 0 24px;marg
 .footer-bar{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--muted-2)}
 @media(min-width:600px){.footer-bar{flex-direction:row;justify-content:space-between;align-items:center}}
 .footer-bar b{color:var(--accent)}
+.footer-legal-links{display:flex;flex-wrap:wrap;gap:16px;order:3}
+@media(min-width:600px){.footer-legal-links{order:0}}
+.footer-legal-links a{color:var(--muted-2);text-decoration:none;transition:.15s}
+.footer-legal-links a:hover{color:var(--accent)}
+.drawer-legal{display:flex;flex-direction:column;gap:10px;padding:18px 24px;border-top:1px solid var(--line)}
+.drawer-legal a{color:var(--muted);text-decoration:none;font-size:13.5px}
+.drawer-legal a:hover{color:var(--accent)}
 
 /* ════════════════════════════════════
    ALERTS PAGE - PREFERENCES

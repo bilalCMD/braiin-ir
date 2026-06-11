@@ -147,6 +147,11 @@ function renderHeader(activePage = '', heroMode = false) {
         </button>
       </div>
       <nav class="drawer-nav">${drawerLinks}</nav>
+      <div class="drawer-legal">
+        <a href="privacy">Privacy Policy</a>
+        <a href="terms">Terms &amp; Security</a>
+        <a href="disclaimer">Forward-Looking Statements</a>
+      </div>
       <div class="drawer-footer-note">NASDAQ: BRAI · Braiin Limited</div>
     </aside>
   `;
@@ -227,6 +232,11 @@ function renderFooter() {
         </div>
         <div class="footer-bar">
           <span>© ${new Date().getFullYear()} Braiin Limited. All rights reserved. NASDAQ: BRAI.</span>
+          <span class="footer-legal-links">
+            <a href="privacy">Privacy Policy</a>
+            <a href="terms">Terms &amp; Security</a>
+            <a href="disclaimer">Forward-Looking Statements</a>
+          </span>
           <span>Designed &amp; built by <b>Dart Marketing</b></span>
         </div>
       </div>
